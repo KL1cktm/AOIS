@@ -21,7 +21,7 @@ public class logicalFunctions {
     private String numericPDNF = "";
     private String numericPCNF = "";
     private int indexForm = 0;
-
+    private String binaryIndexForm = "";
     public void setFunction(String function) {
         this.function = function;
     }
@@ -59,7 +59,7 @@ public class logicalFunctions {
         System.out.println("PCNF: " + this.resultPCNF);
         System.out.println("numeric PCNF: " + this.numericPCNF);
         System.out.println("numeric PDNF: " + this.numericPDNF);
-        System.out.println("index Form: " + this.indexForm);
+        System.out.println("index Form: " + this.indexForm + " - " + this.binaryIndexForm);
     }
 
     public void createIndexForm() {
@@ -67,11 +67,14 @@ public class logicalFunctions {
         for (List<Character> line : this.truthTable) {
             binaryCode.push((int) line.get(line.size() - 1) - shiftASCII);
         }
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < Math.pow(2, this.operands.size()); i++) {
+            stringBuilder.append(binaryCode.peek());
             if (binaryCode.pop() == 1) {
                 this.indexForm += Math.pow(2, i);
             }
         }
+        this.binaryIndexForm = stringBuilder.reverse().toString();
     }
 
     public void createNumericForms() {
