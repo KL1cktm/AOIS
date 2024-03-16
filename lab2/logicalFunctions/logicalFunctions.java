@@ -63,7 +63,7 @@ public class logicalFunctions {
     }
 
     public void createIndexForm() {
-        Stack<Integer> binaryCode = new Stack<>();
+        Deque<Integer> binaryCode = new ArrayDeque<>();
         for (List<Character> line : this.truthTable) {
             binaryCode.push((int) line.get(line.size() - 1) - shiftASCII);
         }
@@ -181,11 +181,11 @@ public class logicalFunctions {
         for (char token : this.operands) {
             this.operandsIndex.put(token, i++);
         }
-        Stack<Character> result = new Stack<>();
-        putIntoTheStack(result, reversePolishEntry);
+        Deque<Character> result = new ArrayDeque<>();
+        putIntoTheDeque(result, reversePolishEntry);
     }
 
-    private void putIntoTheStack(Stack<Character> result, String reversePolishEntry) {
+    private void putIntoTheDeque(Deque<Character> result, String reversePolishEntry) {
         for (int j = 0; j < Math.pow(2, this.operands.size()); j++) {
             for (int i = 0; i < reversePolishEntry.length(); i++) {
                 if (checkAddedElement(result, reversePolishEntry.charAt(i), j)) {
@@ -196,7 +196,7 @@ public class logicalFunctions {
         }
     }
 
-    private boolean checkAddedElement(Stack<Character> truthValue, char tokenFromPolishEntry, int index) {
+    private boolean checkAddedElement(Deque<Character> truthValue, char tokenFromPolishEntry, int index) {
         for (char token : this.operands) {
             if (token == tokenFromPolishEntry) {
                 truthValue.push(this.truthTable.get(index).get(this.operandsIndex.get(tokenFromPolishEntry)));
@@ -206,7 +206,7 @@ public class logicalFunctions {
         return true;
     }
 
-    private void performingTheOperation(Stack<Character> stack, char token) {
+    private void performingTheOperation(Deque<Character> deque, char token) {
         StringBuilder operator = new StringBuilder("");
         if (token == '-') {
             operator.append(token).append('>');
@@ -215,74 +215,74 @@ public class logicalFunctions {
         }
         switch (operator.toString()) {
             case "&":
-                conjunction(stack);
+                conjunction(deque);
                 break;
             case "|":
-                disjunction(stack);
+                disjunction(deque);
                 break;
             case "->":
-                implication(stack);
+                implication(deque);
                 break;
             case "~":
-                equivalence(stack);
+                equivalence(deque);
                 break;
             case "!":
-                negation(stack);
+                negation(deque);
                 break;
         }
     }
 
-    private void equivalence(Stack<Character> stack) {
-        char value1 = stack.pop();
-        char value2 = stack.pop();
+    private void equivalence(Deque<Character> deque) {
+        char value1 = deque.pop();
+        char value2 = deque.pop();
         if (value1 == value2) {
-            stack.push('1');
+            deque.push('1');
         } else {
-            stack.push('0');
+            deque.push('0');
         }
     }
 
-    private void conjunction(Stack<Character> stack) {
-        char value1 = stack.pop();
-        char value2 = stack.pop();
+    private void conjunction(Deque<Character> deque) {
+        char value1 = deque.pop();
+        char value2 = deque.pop();
         if (value1 == value2 && value1 == '1') {
-            stack.push('1');
+            deque.push('1');
         } else {
-            stack.push('0');
+            deque.push('0');
         }
     }
 
-    private void disjunction(Stack<Character> stack) {
-        char value1 = stack.pop();
-        char value2 = stack.pop();
+    private void disjunction(Deque<Character> deque) {
+        char value1 = deque.pop();
+        char value2 = deque.pop();
         if (value1 == '1' || value2 == '1') {
-            stack.push('1');
+            deque.push('1');
         } else {
-            stack.push('0');
+            deque.push('0');
         }
     }
 
-    private void negation(Stack<Character> stack) {
-        char value1 = stack.pop();
+    private void negation(Deque<Character> deque) {
+        char value1 = deque.pop();
         if (value1 == '1') {
-            stack.push('0');
+            deque.push('0');
         } else {
-            stack.push('1');
+            deque.push('1');
         }
     }
 
-    private void implication(Stack<Character> stack) {
-        char value1 = stack.pop();
-        char value2 = stack.pop();
+    private void implication(Deque<Character> deque) {
+        char value1 = deque.pop();
+        char value2 = deque.pop();
         if ((int) value1 >= (int) value2) {
-            stack.push('1');
+            deque.push('1');
         } else {
-            stack.push('0');
+            deque.push('0');
         }
     }
 
     private String createRPE() {
-        Stack<String> operations = new Stack<>();
+        Deque<String> operations = new ArrayDeque<>();
         StringBuilder reversePolishEntry = new StringBuilder("");
         for (char token : this.function.toCharArray()) {
             if (checkOperands(token)) {
@@ -291,14 +291,14 @@ public class logicalFunctions {
                 if (token == '>') {
                     continue;
                 }
-                entryOperatorsToStack(reversePolishEntry, operations, token);
+                entryOperatorsToDeque(reversePolishEntry, operations, token);
             }
         }
-        getItFromTheStack(operations, reversePolishEntry);
+        getItFromTheDeque(operations, reversePolishEntry);
         return reversePolishEntry.toString();
     }
 
-    private void getItFromTheStack(Stack<String> operations, StringBuilder reversePolishEntry) {
+    private void getItFromTheDeque(Deque<String> operations, StringBuilder reversePolishEntry) {
         while (true) {
             if (!operations.isEmpty()) {
                 reversePolishEntry.append(operations.pop());
@@ -308,17 +308,17 @@ public class logicalFunctions {
         }
     }
 
-    private void entryOperatorsToStack(StringBuilder reversePolishEntry, Stack<String> operations, char token) {
+    private void entryOperatorsToDeque(StringBuilder reversePolishEntry, Deque<String> operations, char token) {
         StringBuilder operator = new StringBuilder("");
         if (token == '-') {
             operator.append(token).append(">");
         } else {
             operator.append(token);
         }
-        workWithOperationStack(operations, reversePolishEntry, operator);
+        workWithOperationDeque(operations, reversePolishEntry, operator);
     }
 
-    private void workWithOperationStack(Stack<String> operations, StringBuilder reversePolishEntry, StringBuilder operator) {
+    private void workWithOperationDeque(Deque<String> operations, StringBuilder reversePolishEntry, StringBuilder operator) {
         while (true) {
             if (operations.isEmpty()) {
                 operations.push(operator.toString());
@@ -338,7 +338,7 @@ public class logicalFunctions {
         }
     }
 
-    private void writingPriorityParentheses(Stack<String> operations, StringBuilder reversePolishEntry) {
+    private void writingPriorityParentheses(Deque<String> operations, StringBuilder reversePolishEntry) {
         if (operations.peek().equals(")")) {
             operations.pop();
             while (true) {
