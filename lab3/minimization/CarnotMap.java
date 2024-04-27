@@ -231,6 +231,7 @@ public abstract class CarnotMap {
         this.result = result;
     }
     private void printResult(char token) {
+        System.out.print("Result: ");
         for (int i=0;i<this.result.size();i++) {
             System.out.print("(");
             System.out.print(this.result.get(i));
@@ -248,8 +249,6 @@ public abstract class CarnotMap {
         deleteRepeatIndexes(lineIndex);
         deleteRepeatIndexes(lineNum);
         divisionIndexes(lineIndex, lineNum);
-//        System.out.println(lineIndex);
-//        System.out.println(lineNum);
     }
 
     private void divisionIndexes(List<List<Integer>> lineIndex, List<List<Integer>> lineNum) {
@@ -259,7 +258,6 @@ public abstract class CarnotMap {
             stringBuilder.append(checkHorizon(lineIndex.get(i)));
             this.result.add(stringBuilder.toString());
         }
-//        System.out.println(this.result);
     }
 
     private String checkHorizon(List<Integer> lineIndex) {
@@ -278,7 +276,6 @@ public abstract class CarnotMap {
                     num++;
                 }
                 if (num == horizon.size() - 1) {
-//                if (num == horizon.get(0).length() - 1) {
                     if (horizon.get(j).charAt(i) == '0') {
                         stringBuilder.append("!");
                         stringBuilder.append(this.keysHor.get(i));

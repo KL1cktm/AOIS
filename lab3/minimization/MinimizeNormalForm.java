@@ -157,7 +157,6 @@ public class MinimizeNormalForm {
         startProcessOfGluing();
         deleteUnnecessary();
         createTable();
-//        deleteValueFromResult();
         printResult();
     }
 
@@ -189,7 +188,6 @@ public class MinimizeNormalForm {
     private void createTable() {
         List<String> enabling = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
-//        this.result.add("ac");  check correct work
         for (int i = 0; i < this.result.size(); i++) {
             for (int j = 0; j < this.frames.size(); j++) {
                 if (entryElements(this.result.get(i), this.frames.get(j))) {
@@ -342,7 +340,7 @@ public class MinimizeNormalForm {
             gluingFrames(elementsGluing.get(i));
             componentsOfGluingFrames(elementsGluing.get(i));
         }
-        printFirstGluing();  //работает, тут остановился
+        printFirstGluing();
         secondStepOfMinimize(this.intermediateValue);
     }
 
@@ -367,7 +365,7 @@ public class MinimizeNormalForm {
         this.result.add(stringBuilder.toString());
     }
 
-    private void secondStepOfMinimize(List<String> variables) {     //have 1 or more x
+    private void secondStepOfMinimize(List<String> variables) {
         List<List<String>> elementsGluing = new ArrayList<>();
         for (int i = 0; i < variables.size(); i++) {
             List<Integer> indexes = getIndexOfUnknownVariable(variables.get(i));
@@ -454,7 +452,7 @@ public class MinimizeNormalForm {
         return stringBuilder.toString();
     }
 
-    private void createCorrectElementsList(List<String> elements) {    //delete repeat strings
+    private void createCorrectElementsList(List<String> elements) {
         if (elements.size() > 0) {
             for (int i = 1; i < elements.size(); i++) {
                 if (elements.get(i).equals(elements.get(0))) {
@@ -464,7 +462,7 @@ public class MinimizeNormalForm {
         }
     }
 
-    private List<String> findCoincidence(List<Integer> indexes, int start, List<String> variables, String variable) {   //find coincidence from 11x1x format
+    private List<String> findCoincidence(List<Integer> indexes, int start, List<String> variables, String variable) {
         List<String> elements = new ArrayList<>();
         for (int i = start; i < variables.size(); i++) {
             if (checkCoincidence(variables.get(i), indexes)) {
@@ -620,9 +618,6 @@ public class MinimizeNormalForm {
     private void deleteUnnecessary() {
         Map<Character, Integer> token = new HashMap<>();
         changeResultToSign();
-//        this.result.add("ac");
-//        this.result.add("ac");  check normal work
-
         for (String element : this.result) {
             setValueTruth(element, token);
             List<String> values = setTruthOtherValues(token, element);
@@ -719,7 +714,6 @@ public class MinimizeNormalForm {
         for (String value : values) {
             for (char token : value.toCharArray()) {
                 if (token != '1') {
-//                    this.deleteValue.add(element);
                     return;
                 }
             }

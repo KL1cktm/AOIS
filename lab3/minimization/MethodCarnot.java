@@ -36,7 +36,7 @@ public class MethodCarnot {
         this.carnotMap.setNormalForm(this.tableResult);
         this.carnotMap.setCell(this.token);
         this.carnotMap.createMap();
-        this.carnotMap.printTable();
+//        this.carnotMap.printTable();
         this.carnotMap.printTruthTable();
         this.carnotMap.findRectangle();
     }
@@ -79,7 +79,7 @@ public class MethodCarnot {
         for (List<Character> row: truthTable) {
             this.tableResult.add(row.get(size));
         }
-        System.out.println(this.tableResult);
+//        System.out.println(this.tableResult);
 //        System.out.println(this.tableResult);                             Result of tri=uth table
     }
     private void getListOfKeys() {

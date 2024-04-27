@@ -8,6 +8,11 @@ public class logicalFunctions {
         this.function = function;
     }
 
+    public logicalFunctions(Set<Character> variables, List<List<Character>> table) {
+        this.operands = variables;
+        this.truthTable = table;
+    }
+
     private final int shiftASCII = 48;
     private String function;
     private Set<Character> operands = new HashSet<>();
@@ -15,7 +20,6 @@ public class logicalFunctions {
 
     private List<List<Character>> truthTable = new ArrayList<>();
     private final Map<String, Integer> operatorsPriority = Map.of("&", 3, "|", 2, "!", 4, "~", 1, "->", 1, ")", 5, "(", 5);
-    //    private final Map<String, Integer> operatorsPriority = Map.of("&", 4, "|", 3, "!", 5, "~", 2, "->", 1, ")", 6, "(", 6);
     private final List<String> operators = Arrays.asList("&", "|", "!", "~", "->", ")", "(");
     private String resultPDNF = "";
     private String resultPCNF = "";
