@@ -1,15 +1,11 @@
 package test;
 
 import minimization.MethodCarnot;
-import minimization.MinimizeNormalForm;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class MethodCarnotTest {
     @Test
@@ -20,7 +16,7 @@ public class MethodCarnotTest {
         List<String> newLine = new ArrayList<>();
         newLine.add("a");
         newLine.add("bc");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
 
     @Test
@@ -31,8 +27,9 @@ public class MethodCarnotTest {
         List<String> newLine = new ArrayList<>();
         newLine.add("ac");
         newLine.add("ab");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
+
     @Test
     public void minimizePCNF2Test() {
         MethodCarnot method = new MethodCarnot();
@@ -40,7 +37,7 @@ public class MethodCarnotTest {
         method.minimizePCNF();
         List<String> newLine = new ArrayList<>();
         newLine.add("bc");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
 
     @Test
@@ -51,8 +48,9 @@ public class MethodCarnotTest {
         List<String> newLine = new ArrayList<>();
         newLine.add("c");
         newLine.add("b");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
+
     @Test
     public void minimizePCNF4Test() {
         MethodCarnot method = new MethodCarnot();
@@ -61,7 +59,7 @@ public class MethodCarnotTest {
         List<String> newLine = new ArrayList<>();
         newLine.add("b!ce");
         newLine.add("!abe");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
 
     @Test
@@ -73,8 +71,9 @@ public class MethodCarnotTest {
         newLine.add("b");
         newLine.add("e");
         newLine.add("!a!c");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
+
     @Test
     public void minimizePCNF5Test() {
         MethodCarnot method = new MethodCarnot();
@@ -86,7 +85,7 @@ public class MethodCarnotTest {
         newLine.add("!ade");
         newLine.add("!ab!de");
         newLine.add("b!c!de");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
 
     @Test
@@ -100,6 +99,6 @@ public class MethodCarnotTest {
         newLine.add("!cde");
         newLine.add("!ab");
         newLine.add("cde");
-        Assert.assertEquals(newLine,method.getResult());
+        Assert.assertEquals(newLine, method.getResult());
     }
 }
